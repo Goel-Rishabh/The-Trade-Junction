@@ -42,7 +42,7 @@ export const CartPage = ({ cart, onAdd, onRemove, setView }) => {
                 <button onClick={() => onAdd(item)} className="w-10 h-10 flex items-center justify-center font-bold text-gray-400 hover:text-amber-600">+</button>
               </div>
               <div className="text-right min-w-[100px]">
-                <p className="text-2xl font-black text-gray-900">${(item.price * item.quantity).toLocaleString()}</p>
+                <p className="text-2xl font-black text-gray-900">₹{(item.price * item.quantity).toLocaleString()}</p>
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@ export const CartPage = ({ cart, onAdd, onRemove, setView }) => {
       <div className="mt-12 bg-amber-400 p-10 rounded-[40px] flex justify-between items-center">
         <div>
           <p className="text-amber-900 font-bold uppercase tracking-widest opacity-70">Total Amount</p>
-          <p className="text-6xl font-black text-gray-900">${total.toLocaleString()}</p>
+          <p className="text-6xl font-black text-gray-900">₹{total.toLocaleString()}</p>
         </div>
         <button className="bg-black text-white px-12 py-5 rounded-3xl font-black text-xl hover:scale-105 transition-transform shadow-2xl">
           CHECKOUT NOW

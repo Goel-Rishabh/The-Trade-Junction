@@ -23,7 +23,7 @@ export const ProductTile = ({onAddToCart, onRemoveFromCart, item, index}) => {
             <p className="text-gray-400 text-sm mb-4">{description}</p>
 
             <div className="flex justify-between items-center">
-                <span className="text-2xl font-black text-gray-900">${price}</span>
+                <span className="text-2xl font-black text-gray-900">₹{price}</span>
                 <button onClick={()=>{onAddToCart(item)}} className="bg-gray-100 text-gray-800 p-3 rounded-xl font-bold hover:bg-amber-100 transition-colors">+</button>
             </div>
         </div>

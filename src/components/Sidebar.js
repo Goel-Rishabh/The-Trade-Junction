@@ -48,7 +48,7 @@ export const Sidebar = ({ cart = [], setCurrentView, currentView }) => {
 
 
 
-                <button className="flex items-center gap-4 p-3 hover:bg-amber-50 rounded-2xl transition-all group">
+                <button onClick={() => setCurrentView('contactUs')} className="flex items-center gap-4 p-3 hover:bg-amber-50 rounded-2xl transition-all group">
                     <span className="text-xl group-hover:scale-110 transition-transform">📞</span>
                     {isExpanded && <span className="font-semibold text-gray-700">Contact Us</span>}
                 </button>

@@ -6,7 +6,7 @@ import { NewArrival } from './components/NewArrival';
 import { Products } from './components/Products';
 import Papa from 'papaparse';
 import { CartPage } from './components/CartPage';
-
+import { ContactUs } from './components/ContactUs'
 export default function App() {
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,7 +28,7 @@ export default function App() {
       },
     });
   }, []);
-const onAddToCart = (item) => {
+  const onAddToCart = (item) => {
     setCart((prevCart) => {
       // 1. Check if the item is already in the cart
       const isItemInCart = prevCart.find((cartItem) => cartItem.id === item.id);
@@ -69,28 +69,34 @@ const onAddToCart = (item) => {
   return (
     <div className="min-h-screen bg-[#f5f2f0] flex">
       {/* Pass cart and sidebar state to Sidebar */}
-      <Sidebar 
-        cart={cart} 
-        setCurrentView={setCurrentView} 
+      <Sidebar
+        cart={cart}
+        setCurrentView={setCurrentView}
         currentView={currentView}
       />
 
       <main className="flex-1 ml-20 p-12 pb-32">
         <Header onSearch={setSearchQuery} />
 
-        {currentView === 'home' ? (
-            <>
-              <NewArrival />
-              <Products searchQuery={searchQuery} onAddToCart={onAddToCart} onRemoveFromCart={removeFromCart} data={data} />
-            </>
-          ) : (
-            <CartPage cart={cart} onAdd={onAddToCart} onRemove={removeFromCart} setView={setCurrentView} />
-          )}
-        </main>
+        {currentView === 'home' && (
+          <>
+            <NewArrival />
+            <Products searchQuery={searchQuery} onAddToCart={onAddToCart} onRemoveFromCart={removeFromCart} data={data} />
+          </>
+        )}
+
+        {currentView === 'cart' && (
+          <CartPage cart={cart} onAdd={onAddToCart} onRemove={removeFromCart} setView={setCurrentView} />
+        )}
+
+        {currentView === 'contactUs' && (
+          <ContactUs />
+        )}
+      </main>
 
 
       {/* Pass cart to Footer */}
-      <Footer cartItems={cart} />
+      <Footer cartItems={cart} setView={setCurrentView} />
     </div>
   );
 }
