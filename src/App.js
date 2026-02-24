@@ -90,7 +90,7 @@ export default function App() {
         )}
 
         {currentView === 'contactUs' && (
-          <ContactUs />
+          <ContactUs cart={cart} />
         )}
       </main>
 
