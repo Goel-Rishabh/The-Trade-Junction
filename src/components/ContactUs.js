@@ -5,27 +5,33 @@ export const ContactUs = ({ cart = [] }) => {
   const phoneNumber = "+91 99351 49346";
   const email = "goelrishabh99@gmail.com";
 
-  // Format cart items for the message
-  const cartDetails = cart.length > 0 
-    ? cart.map(item => `- ${item.name} (Qty: ${item.quantity})`).join('%0A') 
-    : "No items in cart";
+  // Shared function to format cart items for WhatsApp
+  const getCartString = () => {
+    return cart.length > 0 
+      ? cart.map(item => `- ${item.name} (Qty: ${item.quantity})`).join('%0A') 
+      : "No items in cart";
+  };
 
   const whatsappBaseUrl = `https://wa.me/${phoneNumber.replace(/\s+/g, '')}`;
-  const whatsappMessage = `Hello! I have an inquiry.%0A%0A*My Cart:*%0A${cartDetails}`;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.log("Message Sent:", {
-      name: formData.get('name'),
-      message: formData.get('message'),
-      cart: cart // Sending cart data with the form
-    });
-    alert("Message sent locally! Check console for details.");
+    const userName = formData.get('name');
+    const userMsg = formData.get('message');
+    const cartDetails = getCartString();
+
+    // Construct the full message for the form button
+    const fullMessage = `*New Inquiry from ${userName}*%0A%0A` +
+                        `*Message:* ${userMsg}%0A%0A` +
+                        `*Cart Items:*%0A${cartDetails}`;
+
+    // Open WhatsApp
+    window.open(`${whatsappBaseUrl}?text=${fullMessage}`, '_blank');
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="max-w-4xl mx-auto mt-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         
         {/* Left Side: Info */}
@@ -74,12 +80,12 @@ export const ContactUs = ({ cart = [] }) => {
 
           <div className="mt-12">
             <a 
-              href={`${whatsappBaseUrl}?text=${whatsappMessage}`} 
+              href={`${whatsappBaseUrl}?text=Hello! I have a general inquiry about the products in my cart.`} 
               target="_blank" 
               rel="noreferrer"
               className="w-full bg-green-600 hover:bg-green-500 text-white py-4 rounded-2xl flex items-center justify-center gap-2 font-black transition-all active:scale-95 shadow-lg shadow-green-900/20"
             >
-              <MessageCircle size={20} /> WHATSAPP INQUIRY
+              <MessageCircle size={20} /> WHATSAPP CHAT
             </a>
           </div>
         </div>
@@ -94,14 +100,14 @@ export const ContactUs = ({ cart = [] }) => {
             </div>
             <div>
               <label className="text-[10px] font-black uppercase text-gray-400 ml-1">Message</label>
-              <textarea name="message" required rows="4" className="w-full bg-gray-50 border-2 border-gray-100 rounded-xl p-4 focus:border-amber-400 outline-none transition-all font-medium" placeholder="Ask us anything..."></textarea>
+              <textarea name="message" required rows="4" className="w-full bg-gray-50 border-2 border-gray-100 rounded-xl p-4 focus:border-amber-400 outline-none transition-all font-medium" placeholder="How can we help you today?"></textarea>
             </div>
             <div className="p-4 bg-amber-50 rounded-xl border border-amber-100 mb-4">
-                <p className="text-[10px] text-amber-800 font-bold uppercase tracking-tight">Note:</p>
-                <p className="text-[11px] text-amber-700">Your current cart items will be attached to this message automatically.</p>
+                <p className="text-[10px] text-amber-800 font-bold uppercase tracking-tight">Cart Attachment:</p>
+                <p className="text-[11px] text-amber-700 font-medium">This will automatically list your {cart.length} items on WhatsApp.</p>
             </div>
-            <button type="submit" className="w-full bg-gray-900 text-white py-4 rounded-xl font-black flex items-center justify-center gap-2 hover:bg-gray-800 transition-all active:scale-95">
-              SEND MESSAGE <Send size={18} className="text-amber-400" />
+            <button type="submit" className="w-full bg-gray-900 text-white py-4 rounded-xl font-black flex items-center justify-center gap-2 hover:bg-gray-800 transition-all active:scale-95 shadow-xl">
+              SEND VIA WHATSAPP <Send size={18} className="text-amber-400" />
             </button>
           </form>
         </div>
