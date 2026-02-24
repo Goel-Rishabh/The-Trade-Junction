@@ -80,8 +80,8 @@ export default function App() {
 
         {currentView === 'home' && (
           <>
-            <NewArrival />
-            <Products searchQuery={searchQuery} onAddToCart={onAddToCart} onRemoveFromCart={removeFromCart} data={data} />
+            <NewArrival onAddToCart={onAddToCart} />            
+            <Products searchQuery={searchQuery} onAddToCart={onAddToCart} onRemoveFromCart={removeFromCart} data={data} cart={cart}/>
           </>
         )}
 

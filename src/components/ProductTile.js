@@ -1,11 +1,17 @@
-export const ProductTile = ({onAddToCart, onRemoveFromCart, item, index}) => {
 
+export const ProductTile = ({ onAddToCart, onRemoveFromCart, item }) => {
+    const { image, name, category, description, price, quantity } = item;
+    const isInCart = quantity > 0;
 
-    const { image, name, category, description, price, quantity } = item
-    console.log(quantity)
     return (
-        <div key={index} className="bg-white p-6 rounded-[32px] shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            {/* Image/Emoji from Excel */}
+        <div className="bg-white p-6 rounded-[32px] shadow-sm border border-gray-100 hover:shadow-md transition-shadow relative">
+            {/* Optional: Quantity Badge */}
+            {isInCart && (
+                <div className="absolute top-4 right-4 bg-amber-400 text-black text-[10px] font-black px-2 py-1 rounded-lg z-10 shadow-sm">
+                    {quantity} IN CART
+                </div>
+            )}
+
             <div className="h-48 bg-gray-50 rounded-2xl mb-4 overflow-hidden flex items-center justify-center">
                 {image ? (
                     <img
@@ -14,18 +20,38 @@ export const ProductTile = ({onAddToCart, onRemoveFromCart, item, index}) => {
                         className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                     />
                 ) : (
-                    <span className="text-5xl">💻</span> // Fallback if no URL is found
+                    <span className="text-5xl">💻</span>
                 )}
             </div>
 
             <p className="text-xs font-bold text-amber-600 uppercase tracking-widest">{category}</p>
             <h3 className="font-bold text-lg text-gray-800">{name}</h3>
-            <p className="text-gray-400 text-sm mb-4">{description}</p>
+            <p className="text-gray-400 text-sm mb-4 line-clamp-2">{description}</p>
 
             <div className="flex justify-between items-center">
                 <span className="text-2xl font-black text-gray-900">₹{price}</span>
-                <button onClick={()=>{onAddToCart(item)}} className="bg-gray-100 text-gray-800 p-3 rounded-xl font-bold hover:bg-amber-100 transition-colors">+</button>
+                
+                <div className="flex items-center gap-2">
+                    {/* Only show minus button if item is in cart */}
+                    {isInCart && (
+                        <button 
+                            onClick={() => onRemoveFromCart(item)} 
+                            className="bg-gray-100 text-gray-800 w-10 h-10 rounded-xl font-bold hover:bg-red-50 hover:text-red-500 transition-colors flex items-center justify-center"
+                        >
+                            -
+                        </button>
+                    )}
+
+                    <button 
+                        onClick={() => onAddToCart(item)} 
+                        className={`${
+                            isInCart ? 'bg-amber-400 text-black shadow-md' : 'bg-gray-100 text-gray-800'
+                        } w-10 h-10 rounded-xl font-bold hover:opacity-80 transition-all flex items-center justify-center`}
+                    >
+                        +
+                    </button>
+                </div>
             </div>
         </div>
-    )
-}
+    );
+};

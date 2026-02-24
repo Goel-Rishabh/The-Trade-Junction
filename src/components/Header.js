@@ -1,6 +1,6 @@
 export const Header = ({ onSearch }) => (
   <header className="flex justify-between items-center mb-10">
-    <h1 className="text-3xl font-black tracking-tighter uppercase text-gray-800">Electronic Store</h1>
+    <h1 className="text-3xl font-black tracking-tighter uppercase text-gray-800">E - Store</h1>
     
     <div className="flex gap-4 items-center flex-1 justify-end">
       {/* Search Bar */}

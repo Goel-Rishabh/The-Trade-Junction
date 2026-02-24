@@ -14,8 +14,8 @@ export const Sidebar = ({ cart = [], setCurrentView, currentView }) => {
             onMouseLeave={() => setIsExpanded(false)}
         >
             <div className="flex items-center px-6 mb-10 gap-4">
-                <div className="text-2xl font-black text-amber-800 italic min-w-[32px]">LE</div>
-                {isExpanded && <span className="font-bold text-gray-800">Lucky Electronics</span>}
+                <div className="text-2xl font-black text-amber-800 italic min-w-[32px]">TTJ</div>
+                {isExpanded && <span className="font-bold text-gray-800">The Trade Junction</span>}
             </div>
 
             <div className="flex flex-col gap-4 px-4">

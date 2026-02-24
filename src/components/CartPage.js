@@ -55,7 +55,7 @@ export const CartPage = ({ cart, onAdd, onRemove, setView }) => {
           <p className="text-amber-900 font-bold uppercase tracking-widest opacity-70">Total Amount</p>
           <p className="text-6xl font-black text-gray-900">₹{total.toLocaleString()}</p>
         </div>
-        <button className="bg-black text-white px-12 py-5 rounded-3xl font-black text-xl hover:scale-105 transition-transform shadow-2xl">
+        <button onClick={()=> {setView('contactUs')}} className="bg-black text-white px-12 py-5 rounded-3xl font-black text-xl hover:scale-105 transition-transform shadow-2xl">
           CHECKOUT NOW
         </button>
       </div>
