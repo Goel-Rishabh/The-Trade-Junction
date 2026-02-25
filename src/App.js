@@ -11,7 +11,6 @@ export default function App() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [cart, setCart] = useState([]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [data, setData] = useState([]);
   const [currentView, setCurrentView] = useState('home'); // 'home' or 'cart' or 'contactUs
 
