@@ -12,7 +12,8 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [cart, setCart] = useState([]);
   const [data, setData] = useState([]);
-  const [currentView, setCurrentView] = useState('home'); // 'home' or 'cart' or 'contactUs
+  const [currentView, setCurrentView] = useState('home'); // 'home' or 'cart' or 'contactUs'
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
 
   useEffect(() => {
@@ -65,6 +66,14 @@ export default function App() {
     });
   };
 
+  const onImageClick = (product) => {
+    setSelectedProduct(product);
+  };
+
+  const closeModal = () => {
+    setSelectedProduct(null);
+  };
+
   return (
     <div className="min-h-screen bg-[#f5f2f0] flex">
       {/* Pass cart and sidebar state to Sidebar */}
@@ -75,12 +84,20 @@ export default function App() {
       />
 
       <main className="flex-1 ml-20 p-12 pb-32">
-        <Header onSearch={setSearchQuery} />
+        <Header onSearch={setSearchQuery} cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)} onCartClick={() => setCurrentView('cart')} />
 
         {currentView === 'home' && (
           <>
             <NewArrival onAddToCart={onAddToCart} />            
-            <Products searchQuery={searchQuery} onAddToCart={onAddToCart} onRemoveFromCart={removeFromCart} data={data} cart={cart}/>
+            <Products
+              searchQuery={searchQuery}
+              onAddToCart={onAddToCart}
+              onRemoveFromCart={removeFromCart}
+              data={data}
+              cart={cart}
+              selectedProduct={selectedProduct}
+              onImageClick={onImageClick}
+            />
           </>
         )}
 
@@ -96,6 +113,20 @@ export default function App() {
 
       {/* Pass cart to Footer */}
       <Footer cartItems={cart} setView={setCurrentView} />
+
+      {selectedProduct && (
+        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-6" onClick={closeModal}>
+          <div onClick={(e)=>e.stopPropagation()} className="relative bg-white rounded-3xl p-6 max-w-3xl w-full shadow-2xl">
+            <button onClick={closeModal} className="absolute top-4 right-4 rounded-full p-2 bg-gray-100 hover:bg-gray-200">✕</button>
+            <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full max-h-[70vh] object-contain rounded-2xl" />
+            <div className="mt-4">
+              <h3 className="text-2xl font-black text-gray-900">{selectedProduct.name}</h3>
+              <p className="text-sm text-gray-500 mt-2">{selectedProduct.highlightText || 'Premium product from our collection.'}</p>
+              <p className="text-gray-600 mt-2 line-clamp-3">{selectedProduct.description}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

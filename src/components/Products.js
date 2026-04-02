@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProductTile } from './ProductTile';
-export const Products = ({ data, searchQuery, onAddToCart, onRemoveFromCart, cart }) => {
+export const Products = ({ data, searchQuery, onAddToCart, onRemoveFromCart, cart, selectedProduct, onImageClick }) => {
 
     const filteredProducts = data.filter(item =>
         item.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -24,6 +24,8 @@ export const Products = ({ data, searchQuery, onAddToCart, onRemoveFromCart, car
                             onAddToCart={onAddToCart} 
                             onRemoveFromCart={onRemoveFromCart} 
                             item={itemWithQuantity} 
+                            isSelected={selectedProduct?.id === product.id}
+                            onImageClick={() => onImageClick(product)}
                         />
                     );
                 })

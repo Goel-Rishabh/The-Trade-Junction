@@ -78,15 +78,8 @@ export const ContactUs = ({ cart = [] }) => {
             </div>
           </div>
 
-          <div className="mt-12">
-            <a 
-              href={`${whatsappBaseUrl}?text=Hello! I have a general inquiry about the products in my cart.`} 
-              target="_blank" 
-              rel="noreferrer"
-              className="w-full bg-green-600 hover:bg-green-500 text-white py-4 rounded-2xl flex items-center justify-center gap-2 font-black transition-all active:scale-95 shadow-lg shadow-green-900/20"
-            >
-              <MessageCircle size={20} /> WHATSAPP CHAT
-            </a>
+          <div className="mt-12 text-sm text-gray-300">
+            Message and cart details will be sent via WhatsApp after you submit the form.
           </div>
         </div>
 

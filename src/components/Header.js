@@ -1,6 +1,9 @@
-export const Header = ({ onSearch }) => (
+export const Header = ({ onSearch, cartCount, onCartClick }) => (
   <header className="flex justify-between items-center mb-10">
-    <h1 className="text-3xl font-black tracking-tighter uppercase text-gray-800">E - Store</h1>
+    <div>
+      <h1 className="text-3xl font-black tracking-tighter uppercase text-gray-800">ElectroHub</h1>
+      <p className="text-xs uppercase text-gray-500 tracking-widest">Your trusted electronic marketplace</p>
+    </div>
     
     <div className="flex gap-4 items-center flex-1 justify-end">
       {/* Search Bar */}
@@ -14,9 +17,12 @@ export const Header = ({ onSearch }) => (
         />
       </div>
 
-      <div className="w-10 h-10 bg-gray-200 rounded-full border-2 border-white shadow-sm overflow-hidden">
-        {/* You can add a profile image here later */}
-      </div>
+      <button onClick={onCartClick} className="relative bg-gray-100 px-4 py-2 rounded-full border border-gray-200 hover:bg-amber-100 transition-all text-sm font-semibold">
+        🛒 Cart
+        {cartCount > 0 && (
+          <span className="ml-2 inline-flex items-center justify-center w-5 h-5 text-xs font-black text-white bg-amber-500 rounded-full">{cartCount}</span>
+        )}
+      </button>
     </div>
   </header>
 );

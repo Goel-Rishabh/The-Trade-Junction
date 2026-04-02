@@ -1,10 +1,10 @@
 
-export const ProductTile = ({ onAddToCart, onRemoveFromCart, item }) => {
-    const { image, name, category, description, price, quantity } = item;
+export const ProductTile = ({ onAddToCart, onRemoveFromCart, item, isSelected, onImageClick }) => {
+    const { image, name, category, description, price, quantity, highlightText } = item;
     const isInCart = quantity > 0;
 
     return (
-        <div className="bg-white p-6 rounded-[32px] shadow-sm border border-gray-100 hover:shadow-md transition-shadow relative">
+        <div className={`bg-white p-6 rounded-[32px] shadow-sm border ${isSelected ? 'border-amber-500 shadow-lg scale-[1.01]' : 'border-gray-100 hover:shadow-md'} transition-all relative`}>
             {/* Optional: Quantity Badge */}
             {isInCart && (
                 <div className="absolute top-4 right-4 bg-amber-400 text-black text-[10px] font-black px-2 py-1 rounded-lg z-10 shadow-sm">
@@ -12,12 +12,12 @@ export const ProductTile = ({ onAddToCart, onRemoveFromCart, item }) => {
                 </div>
             )}
 
-            <div className="h-48 bg-gray-50 rounded-2xl mb-4 overflow-hidden flex items-center justify-center">
+            <div onClick={onImageClick} className="h-48 bg-gray-50 rounded-2xl mb-4 overflow-hidden flex items-center justify-center cursor-pointer border-2 border-transparent hover:border-amber-400 transition-all duration-300">
                 {image ? (
                     <img
                         src={image}
                         alt={name}
-                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
                     />
                 ) : (
                     <span className="text-5xl">💻</span>
@@ -26,6 +26,9 @@ export const ProductTile = ({ onAddToCart, onRemoveFromCart, item }) => {
 
             <p className="text-xs font-bold text-amber-600 uppercase tracking-widest">{category}</p>
             <h3 className="font-bold text-lg text-gray-800">{name}</h3>
+            {highlightText && (
+                <p className="text-xs font-semibold text-indigo-600 mt-1">🔥 {highlightText}</p>
+            )}
             <p className="text-gray-400 text-sm mb-4 line-clamp-2">{description}</p>
 
             <div className="flex justify-between items-center">
