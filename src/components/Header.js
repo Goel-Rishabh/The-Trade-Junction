@@ -2,7 +2,7 @@ export const Header = ({ onSearch, cartCount, onCartClick, categories, categoryF
   <header className="flex justify-between items-center mb-10 gap-6">
     <div>
       <h1 className="text-3xl font-black tracking-tighter uppercase text-gray-800">The Trade Junction</h1>
-      <p className="text-xs uppercase text-gray-500 tracking-widest">Curated electronics with real trust</p>
+      <p className="text-xs uppercase text-gray-500 tracking-widest">one stop point for all your needs</p>
     </div>
     
     <div className="flex gap-4 items-center flex-1 justify-end">
