@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/The-Trade-Junction/static/css/main.f080035a.css",
-    "main.js": "/The-Trade-Junction/static/js/main.cd94507b.js",
+    "main.js": "/The-Trade-Junction/static/js/main.35e1b991.js",
     "static/js/453.66270cf7.chunk.js": "/The-Trade-Junction/static/js/453.66270cf7.chunk.js",
     "index.html": "/The-Trade-Junction/index.html",
     "main.f080035a.css.map": "/The-Trade-Junction/static/css/main.f080035a.css.map",
-    "main.cd94507b.js.map": "/The-Trade-Junction/static/js/main.cd94507b.js.map",
+    "main.35e1b991.js.map": "/The-Trade-Junction/static/js/main.35e1b991.js.map",
     "453.66270cf7.chunk.js.map": "/The-Trade-Junction/static/js/453.66270cf7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f080035a.css",
-    "static/js/main.cd94507b.js"
+    "static/js/main.35e1b991.js"
   ]
 }
