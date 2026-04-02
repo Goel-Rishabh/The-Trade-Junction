@@ -1,11 +1,18 @@
 import React from 'react';
 import { ProductTile } from './ProductTile';
-export const Products = ({ data, searchQuery, onAddToCart, onRemoveFromCart, cart, selectedProduct, onImageClick }) => {
+export const Products = ({ data, searchQuery, onAddToCart, onRemoveFromCart, cart, selectedProduct, onImageClick, categoryFilter }) => {
 
-    const filteredProducts = data.filter(item =>
-        item.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.category?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredProducts = data.filter((item) => {
+        const matchesText =
+          item.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.category?.toLowerCase().includes(searchQuery.toLowerCase());
+
+        const matchesCategory =
+          categoryFilter === 'all' ||
+          (item.category && item.category.toLowerCase() === categoryFilter.toLowerCase());
+
+        return matchesText && matchesCategory;
+    });
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

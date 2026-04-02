@@ -1,6 +1,6 @@
 
 export const ProductTile = ({ onAddToCart, onRemoveFromCart, item, isSelected, onImageClick }) => {
-    const { image, name, category, description, price, quantity, highlightText } = item;
+    const { image, name, category, description, price, quantity } = item;
     const isInCart = quantity > 0;
 
     return (
@@ -12,23 +12,28 @@ export const ProductTile = ({ onAddToCart, onRemoveFromCart, item, isSelected, o
                 </div>
             )}
 
-            <div onClick={onImageClick} className="h-48 bg-gray-50 rounded-2xl mb-4 overflow-hidden flex items-center justify-center cursor-pointer border-2 border-transparent hover:border-amber-400 transition-all duration-300">
+            <div onClick={onImageClick} className="h-48 rounded-2xl mb-4 overflow-hidden relative cursor-pointer border-2 border-transparent hover:border-amber-400 transition-all duration-300">
                 {image ? (
-                    <img
-                        src={image}
-                        alt={name}
-                        className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
-                    />
+                    <>
+                        <div
+                            className="absolute inset-0 bg-center bg-cover filter blur-xl scale-110"
+                            style={{ backgroundImage: `url(${image})` }}
+                        />
+                        <img
+                            src={image}
+                            alt={name}
+                            className="relative w-full h-full object-contain hover:scale-105 transition-transform duration-500"
+                        />
+                    </>
                 ) : (
-                    <span className="text-5xl">💻</span>
+                    <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                        <span className="text-5xl">💻</span>
+                    </div>
                 )}
             </div>
 
             <p className="text-xs font-bold text-amber-600 uppercase tracking-widest">{category}</p>
             <h3 className="font-bold text-lg text-gray-800">{name}</h3>
-            {highlightText && (
-                <p className="text-xs font-semibold text-indigo-600 mt-1">🔥 {highlightText}</p>
-            )}
             <p className="text-gray-400 text-sm mb-4 line-clamp-2">{description}</p>
 
             <div className="flex justify-between items-center">

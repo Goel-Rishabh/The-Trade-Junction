@@ -14,6 +14,7 @@ export default function App() {
   const [data, setData] = useState([]);
   const [currentView, setCurrentView] = useState('home'); // 'home' or 'cart' or 'contactUs'
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [categoryFilter, setCategoryFilter] = useState('all');
 
 
   useEffect(() => {
@@ -28,6 +29,9 @@ export default function App() {
       },
     });
   }, []);
+
+  const categories = ['all', ...Array.from(new Set(data.map((item) => item.category?.trim()).filter(Boolean)))];
+
   const onAddToCart = (item) => {
     setCart((prevCart) => {
       // 1. Check if the item is already in the cart
@@ -74,6 +78,29 @@ export default function App() {
     setSelectedProduct(null);
   };
 
+  useEffect(() => {
+    const titleMeta = selectedProduct?.['meta-title'] || selectedProduct?.metaTitle || selectedProduct?.name;
+    const descMeta = selectedProduct?.['meta-description'] || selectedProduct?.metaDescription || selectedProduct?.description;
+
+    if (titleMeta) {
+      document.title = titleMeta;
+    } else {
+      document.title = 'The Traders Point - Elevate Your Lifestyle & Home';
+    }
+
+    const metaDescEl = document.querySelector('meta[name="description"]');
+    if (metaDescEl) {
+      metaDescEl.setAttribute('content', descMeta || 'Shop a curated collection of high-quality watches, unique art pieces, elegant home decor, and must-have electronic accessories at The Traders Point. Discover everything you need for your lifestyle in one place. Fast shipping and quality guaranteed.');
+    }
+
+    return () => {
+      document.title = 'The Traders Point - Elevate Your Lifestyle & Home';
+      if (metaDescEl) {
+        metaDescEl.setAttribute('content', 'Shop a curated collection of high-quality watches, unique art pieces, elegant home decor, and must-have electronic accessories at The Traders Point. Discover everything you need for your lifestyle in one place. Fast shipping and quality guaranteed.');
+      }
+    };
+  }, [selectedProduct]);
+
   return (
     <div className="min-h-screen bg-[#f5f2f0] flex">
       {/* Pass cart and sidebar state to Sidebar */}
@@ -84,7 +111,14 @@ export default function App() {
       />
 
       <main className="flex-1 ml-20 p-12 pb-32">
-        <Header onSearch={setSearchQuery} cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)} onCartClick={() => setCurrentView('cart')} />
+        <Header
+          onSearch={setSearchQuery}
+          cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
+          onCartClick={() => setCurrentView('cart')}
+          categories={categories}
+          categoryFilter={categoryFilter}
+          onCategoryChange={setCategoryFilter}
+        />
 
         {currentView === 'home' && (
           <>
@@ -97,6 +131,7 @@ export default function App() {
               cart={cart}
               selectedProduct={selectedProduct}
               onImageClick={onImageClick}
+              categoryFilter={categoryFilter}
             />
           </>
         )}
@@ -115,14 +150,26 @@ export default function App() {
       <Footer cartItems={cart} setView={setCurrentView} />
 
       {selectedProduct && (
-        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-6" onClick={closeModal}>
-          <div onClick={(e)=>e.stopPropagation()} className="relative bg-white rounded-3xl p-6 max-w-3xl w-full shadow-2xl">
-            <button onClick={closeModal} className="absolute top-4 right-4 rounded-full p-2 bg-gray-100 hover:bg-gray-200">✕</button>
-            <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full max-h-[70vh] object-contain rounded-2xl" />
-            <div className="mt-4">
-              <h3 className="text-2xl font-black text-gray-900">{selectedProduct.name}</h3>
-              <p className="text-sm text-gray-500 mt-2">{selectedProduct.highlightText || 'Premium product from our collection.'}</p>
-              <p className="text-gray-600 mt-2 line-clamp-3">{selectedProduct.description}</p>
+        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4 md:p-6" onClick={closeModal}>
+          <div onClick={(e)=>e.stopPropagation()} className="relative bg-white rounded-3xl p-4 sm:p-6 md:p-8 max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
+            <button onClick={closeModal} className="absolute top-3 right-3 sm:top-4 sm:right-4 rounded-full p-2 bg-gray-100 hover:bg-gray-200">✕</button>
+            <div className="h-full w-full overflow-y-auto max-h-[82vh] pr-1">
+              <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full max-h-[45vh] md:max-h-[50vh] object-contain rounded-2xl" />
+              <div className="mt-4">
+                <h3 className="text-2xl font-black text-gray-900">{selectedProduct.name}</h3>
+                {selectedProduct['meta-title'] || selectedProduct.metaTitle ? (
+                  <p className="mt-2 text-sm text-gray-500">SEO Title: {selectedProduct['meta-title'] || selectedProduct.metaTitle}</p>
+                ) : null}
+                {selectedProduct['meta-description'] || selectedProduct.metaDescription ? (
+                  <p className="mt-2 text-sm text-gray-500">SEO Description: {selectedProduct['meta-description'] || selectedProduct.metaDescription}</p>
+                ) : null}
+                <p className="text-gray-600 mt-2">{selectedProduct.description}</p>
+                {selectedProduct.highlightText ? (
+                  <p className="mt-3 text-sm text-gray-700 font-medium border-l-4 border-amber-400 pl-3">
+                    {selectedProduct.highlightText}
+                  </p>
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
