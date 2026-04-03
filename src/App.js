@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Footer } from './components/Footer';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
@@ -78,31 +79,17 @@ export default function App() {
     setSelectedProduct(null);
   };
 
-  useEffect(() => {
-    const titleMeta = selectedProduct?.['meta-title'] || selectedProduct?.metaTitle || selectedProduct?.name;
-    const descMeta = selectedProduct?.['meta-description'] || selectedProduct?.metaDescription || selectedProduct?.description;
-
-    if (titleMeta) {
-      document.title = titleMeta;
-    } else {
-      document.title = 'The Traders Point - Elevate Your Lifestyle & Home';
-    }
-
-    const metaDescEl = document.querySelector('meta[name="description"]');
-    if (metaDescEl) {
-      metaDescEl.setAttribute('content', descMeta || 'Shop a curated collection of high-quality watches, unique art pieces, elegant home decor, and must-have electronic accessories at The Traders Point. Discover everything you need for your lifestyle in one place. Fast shipping and quality guaranteed.');
-    }
-
-    return () => {
-      document.title = 'The Traders Point - Elevate Your Lifestyle & Home';
-      if (metaDescEl) {
-        metaDescEl.setAttribute('content', 'Shop a curated collection of high-quality watches, unique art pieces, elegant home decor, and must-have electronic accessories at The Traders Point. Discover everything you need for your lifestyle in one place. Fast shipping and quality guaranteed.');
-      }
-    };
-  }, [selectedProduct]);
-
   return (
     <div className="min-h-screen bg-[#f5f2f0] flex">
+      <Helmet>
+        <title>
+          {selectedProduct?.['meta-title'] || selectedProduct?.metaTitle || 'The Traders Point - Elevate Your Lifestyle & Home'}
+        </title>
+        <meta
+          name="description"
+          content={selectedProduct?.['meta-description'] || selectedProduct?.metaDescription || 'Shop a curated collection of high-quality watches, unique art pieces, elegant home decor, and must-have electronic accessories at The Traders Point. Discover everything you need for your lifestyle in one place. Fast shipping and quality guaranteed.'}
+        />
+      </Helmet>
       {/* Pass cart and sidebar state to Sidebar */}
       <Sidebar
         cart={cart}
@@ -157,12 +144,6 @@ export default function App() {
               <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full max-h-[45vh] md:max-h-[50vh] object-contain rounded-2xl" />
               <div className="mt-4">
                 <h3 className="text-2xl font-black text-gray-900">{selectedProduct.name}</h3>
-                {selectedProduct['meta-title'] || selectedProduct.metaTitle ? (
-                  <p className="mt-2 text-sm text-gray-500">SEO Title: {selectedProduct['meta-title'] || selectedProduct.metaTitle}</p>
-                ) : null}
-                {selectedProduct['meta-description'] || selectedProduct.metaDescription ? (
-                  <p className="mt-2 text-sm text-gray-500">SEO Description: {selectedProduct['meta-description'] || selectedProduct.metaDescription}</p>
-                ) : null}
                 <p className="text-gray-600 mt-2">{selectedProduct.description}</p>
                 {selectedProduct.highlightText ? (
                   <p className="mt-3 text-sm text-gray-700 font-medium border-l-4 border-amber-400 pl-3">
