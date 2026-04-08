@@ -83,11 +83,11 @@ export default function App() {
     <div className="min-h-screen bg-[#f5f2f0] flex">
       <Helmet>
         <title>
-          {selectedProduct?.['meta-title'] || selectedProduct?.metaTitle || 'The Traders Point - Elevate Your Lifestyle & Home'}
+          {selectedProduct?.['meta-title'] || selectedProduct?.metaTitle || 'The Trade Junction - Elevate Your Lifestyle & Home'}
         </title>
         <meta
           name="description"
-          content={selectedProduct?.['meta-description'] || selectedProduct?.metaDescription || 'Shop a curated collection of high-quality watches, unique art pieces, elegant home decor, and must-have electronic accessories at The Traders Point. Discover everything you need for your lifestyle in one place. Fast shipping and quality guaranteed.'}
+          content={selectedProduct?.['meta-description'] || selectedProduct?.metaDescription || 'Shop a curated collection of high-quality watches, unique art pieces, elegant home decor, and must-have electronic accessories at The Trade Junction. Discover everything you need for your lifestyle in one place. Fast shipping and quality guaranteed.'}
         />
       </Helmet>
       {/* Pass cart and sidebar state to Sidebar */}
