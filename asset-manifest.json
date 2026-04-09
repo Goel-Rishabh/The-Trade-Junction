@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/The-Trade-Junction/static/css/main.f080035a.css",
-    "main.js": "/The-Trade-Junction/static/js/main.6fc55970.js",
-    "static/js/453.66270cf7.chunk.js": "/The-Trade-Junction/static/js/453.66270cf7.chunk.js",
-    "index.html": "/The-Trade-Junction/index.html",
-    "main.f080035a.css.map": "/The-Trade-Junction/static/css/main.f080035a.css.map",
-    "main.6fc55970.js.map": "/The-Trade-Junction/static/js/main.6fc55970.js.map",
-    "453.66270cf7.chunk.js.map": "/The-Trade-Junction/static/js/453.66270cf7.chunk.js.map"
+    "main.css": "/static/css/main.f080035a.css",
+    "main.js": "/static/js/main.cbdef456.js",
+    "static/js/453.66270cf7.chunk.js": "/static/js/453.66270cf7.chunk.js",
+    "index.html": "/index.html",
+    "main.f080035a.css.map": "/static/css/main.f080035a.css.map",
+    "main.cbdef456.js.map": "/static/js/main.cbdef456.js.map",
+    "453.66270cf7.chunk.js.map": "/static/js/453.66270cf7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f080035a.css",
-    "static/js/main.6fc55970.js"
+    "static/js/main.cbdef456.js"
   ]
 }
